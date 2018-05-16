@@ -1,6 +1,6 @@
 # Program to generate the image of the limit set of a Kleinian group (specifically a Schottky group) with two generators
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib as plt
 
 
 # list to hold all reduced words of a given max length
@@ -10,11 +10,11 @@ charlst = []
 matlst = []
 
 # matrices to be overwritten later as Mobius transformations
-a = np.matrix([[0+0j, 0+0j],[0+0j, 0+0j]])
-b = np.matrix([[0+0j, 0+0j],[0+0j, 0+0j]])
-A = np.matrix([[0+0j, 0+0j],[0+0j, 0+0j]])
-B = np.matrix([[0+0j, 0+0j],[0+0j, 0+0j]])
 
+a = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
+b = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
+A = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
+B = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
 
 
 '''
@@ -88,9 +88,13 @@ Overview of function:
     Assigns Mobius transformations in PSL(2, R) to a, b, A, and B. 
 '''
 def pickmats():
+    global a
     a = np.matrix([[9+0j, 0+0j],[0+0j, 1+0j]])
+    global b
     b = np.matrix([[5+0j, 4+0j],[4+0j, 5+0j]])
+    global A
     A = np.linalg.inv(a)
+    global B
     B = np.linalg.inv(b)
 
 
@@ -125,16 +129,19 @@ Overview of function:
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
 def plotlimpts():
-    point = 0 + 1j
+    point = 1 + 1j
     x = 0
     limpts = []
+    zarray = []
     for mat in matlst:
+        print mat
         x = (mat[0][0]*point + mat[0][1])/(mat[1][0]*point + mat[1][1])
+        print x
         if np.imag(x) <= 0.1:
             limpts.append(x)
     for pt in limpts:
         zarray.append(0)
-    plt.plot(limpts.real,zarray)
+    plt.plot(np.real(limpts),zarray)
     plt.show
     return
 
@@ -144,9 +151,11 @@ def plotlimpts():
 MAIN
 
 '''
-# length to set precision of plot
-length = raw_input('Please pick the length for words to be generated')
-genwords('','',length)
+genwords('','',2)
 pickmats()
 multwords()
+
+
 plotlimpts()
+
+

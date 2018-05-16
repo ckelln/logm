@@ -1,5 +1,6 @@
 # Program to generate the image of the limit set of a Kleinian group (specifically a Schottky group) with two generators
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # list to hold all reduced words of a given max length
@@ -124,6 +125,17 @@ Overview of function:
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
 def plotlimpts():
+    point = 0 + 1j
+    x = 0
+    limpts = []
+    for mat in matlst:
+        x = (mat[0][0]*point + mat[0][1])/(mat[1][0]*point + mat[1][1])
+        if np.imag(x) <= 0.1:
+            limpts.append(x)
+    for pt in limpts:
+        zarray.append(0)
+    plt.plot(limpts.real,zarray)
+    plt.show
     return
 
 
@@ -131,11 +143,10 @@ def plotlimpts():
 '''
 MAIN
 
-
+'''
 # length to set precision of plot
 length = raw_input('Please pick the length for words to be generated')
 genwords('','',length)
 pickmats()
 multwords()
 plotlimpts()
-'''

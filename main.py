@@ -84,10 +84,13 @@ def genwords(word, letter, max):
 
 '''    
 Overview of function: 
-    Assigns Mobius transformations in PSL(2, R) to a, b, A, and B from user input. 
+    Assigns Mobius transformations in PSL(2, R) to a, b, A, and B. 
 '''
 def pickmats():
-    return
+    a = np.matrix([[9+0j, 0+0j],[0+0j, 1+0j]])
+    b = np.matrix([[5+0j, 4+0j],[4+0j, 5+0j]])
+    A = np.linalg.inv(a)
+    B = np.linalg.inv(b)
 
 
 

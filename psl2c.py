@@ -193,7 +193,7 @@ Overview of function:
 '''
 def f3(point, x3):
     norm = np.absolute(point)**2 + x3**2
-    return [np.conj(point) * norm, x3*norm]
+    return [np.conj(point) / norm, x3 / norm]
 
 
 '''

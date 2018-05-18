@@ -12,7 +12,10 @@ charlst = []
 matlst = []
 
 # matrices to be overwritten later as Mobius transformations
-
+'''
+If tr(abAB) = -2, circles are tangent to eachother, connected Cantor limit set
+abAB has to be a parabolic element
+'''
 a = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
 b = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
 A = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
@@ -80,6 +83,9 @@ def genwords(word, letter, max):
             genwords('A', 'A', max)
             genwords('b', 'b', max)
             genwords('B', 'B', max)
+    #word should be some length less than max, but it would be nice to know what the length of the word is.
+    #lets say word is currently of length i
+    #send word to multwords, then have some checking function, if x3<10^-2
     else:
         charlst.append(word)
 
@@ -87,6 +93,7 @@ def genwords(word, letter, max):
 '''    
 Overview of function: 
     Assigns Mobius transformations in PSL(2, R) to a, b, A, and B. 
+    Maybe we could get a, then define all the others to get tr(abAB)=-2
 '''
 def pickmats():
     global a
@@ -98,7 +105,10 @@ def pickmats():
     global B
     B = np.linalg.inv(b)
 
-
+'''
+create some sort of checking funciton to see if x3<10^-2 at each step.
+probably need to call multwords, but would need to send multwords a word parameter
+'''
 '''
 Overview of function: 
     Given Mobius transformations in PSL(2,R) a and b (and inverses A and B) translates words in charlst to
@@ -141,6 +151,8 @@ def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
     plt.plot(reals, imags, 'bo', markersize=0.1)
+    plt.ylim(ymax=10)
+    plt.ylim(ymin=-10)
     plt.show()
     return
 

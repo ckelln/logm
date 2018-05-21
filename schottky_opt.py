@@ -11,12 +11,12 @@ charlst = []
 # list to hold all resultant matrices of the reduced words in charlst
 matlst = []
 
-# matrices to be overwritten later as Mobius transformations
 
-a = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-b = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-A = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-B = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
+# Matrix assignment
+a = np.matrix([[9+0j, 0+0j], [0+0j, 1+0j]])
+b = np.matrix([[5+0j, 4+0j], [4+0j, 5+0j]])
+A = np.linalg.inv(a)
+B = np.linalg.inv(b)
 
 
 '''
@@ -84,23 +84,6 @@ def genwords(word, letter, max):
         charlst.append(word)
 
 
-
-'''    
-Overview of function: 
-    Assigns Mobius transformations in PSL(2, R) to a, b, A, and B. 
-'''
-def pickmats():
-    global a
-    a = np.matrix([[9+0j, 0+0j],[0+0j, 1+0j]])
-    global b
-    b = np.matrix([[5+0j, 4+0j],[4+0j, 5+0j]])
-    global A
-    A = np.linalg.inv(a)
-    global B
-    B = np.linalg.inv(b)
-
-
-
 '''
 Overview of function: 
     Given Mobius transformations in PSL(2,R) a and b (and inverses A and B) translates words in charlst to
@@ -154,10 +137,7 @@ MAIN
 
 
 genwords('','',10)
-pickmats()
 multwords()
-
-
 plotlimpts()
 
 

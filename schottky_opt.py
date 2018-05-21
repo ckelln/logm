@@ -122,6 +122,10 @@ def genwords(word, letter, max, mat):
             genwords('b', 'b', max, mat)
             genwords('B', 'B', max, mat)
     else:
+        zarray = []
+        for pt in limpts:
+            zarray.append(0)
+        plt.plot(limpts, zarray, 'bo', markersize=0.1)
         plt.show()
 
 
@@ -154,6 +158,8 @@ Overview of function:
     upper half plane. Some products, z, will be near the real axis, others will show signs of diverging. We consider 
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
+
+'''
 def plotlimpts():
     point = 1 + 1j
     limpts = []
@@ -164,16 +170,19 @@ def plotlimpts():
             limpts.append(x)
     for pt in limpts:
         zarray.append(0)
-    plt.plot(np.real(limpts),zarray, 'bo', markersize=0.1)
+    plt.plot(np.real(limpts), zarray, 'bo', markersize=0.1)
     plt.show()
     return
+'''
 
+# Concerned that mat is not changed when this funciton returns in the recursion in genwords
 
 def rescheck(mat, point, trans):
     mat = np.matmul(trans, mat)
     x = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
     if np.imag(x) <= 0.1:
-        plt.plot(np.real(x), 0, 'bo', markersize=0.1)
+        limpts.append(np.real(x))
+        # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
         return True
     else:
         return False
@@ -183,8 +192,8 @@ MAIN
 
 '''
 
-mat = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
-genwords('', '', 10, mat)
+matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
+genwords('', '', 10, matrix1)
 
 
 

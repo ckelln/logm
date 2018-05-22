@@ -38,95 +38,150 @@ def genwords(word, letter, max, mat):
         if letter == 'a':
             newletter = 'a'
             newword = word + 'a'
-            if rescheck(mat, point, a):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            if rescheck(mat, point, b):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'B'
             newword = word + 'B'
-            # attempt to optimize
-            if rescheck(mat, point, B):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
         # case avoiding appending b's inverse, B
         elif letter == 'b':
             newletter = 'a'
             newword = word + 'a'
-            if rescheck(mat, point, a):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            if rescheck(mat, point, b):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            if rescheck(mat, point, A):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
-         # case avoiding appending A's inverse, a
+                genwords(newword, newletter, max, truthmat[1])
+
+        # case avoiding appending A's inverse, a
         elif letter == 'A':
             newletter = 'B'
             newword = word + 'B'
-            if rescheck(mat, point, B):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            if rescheck(mat, point, b):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            if rescheck(mat, point, A):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
         # case avoiding appending B's inverse, b
         elif letter == 'B':
             newletter = 'a'
             newword = word + 'a'
-            if rescheck(mat, point, a):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'B'
             newword = word + 'B'
-            if rescheck(mat, point, B):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            if rescheck(mat, point, A):
-                return
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0]:
+                pass
             else:
-                genwords(newword, newletter, max, mat)
-        # case with empty (word == '') and (letter == '').
+                genwords(newword, newletter, max, truthmat[1])
+
+        # case with empty (word == ''), (letter == ''), and (for the fctn to work) (mat = ID).
         else:
             genwords('a', 'a', max, mat)
             genwords('A', 'A', max, mat)
             genwords('b', 'b', max, mat)
             genwords('B', 'B', max, mat)
     else:
+        charlst.append(word)
+
+        # FIXME for testing
+        # print charlst
+
+        '''
         zarray = []
         for pt in limpts:
             zarray.append(0)
         plt.plot(limpts, zarray, 'bo', markersize=0.1)
         plt.show()
+        '''
+
 
 
 '''
@@ -159,21 +214,24 @@ Overview of function:
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
 
-'''
+
 def plotlimpts():
+    '''
     point = 1 + 1j
     limpts = []
+    '''
     zarray = []
-    for mat in matlst:
-        x = (mat[0,0]*point + mat[0,1])/(mat[1,0]*point + mat[1,1])
-        if np.imag(x) <= 0.1:
-            limpts.append(x)
+    #for mat in matlst:
+        #x = (mat[0,0]*point + mat[0,1])/(mat[1,0]*point + mat[1,1])
+        #if np.imag(x) <= 0.1:
+         #   limpts.append(x)
     for pt in limpts:
         zarray.append(0)
-    plt.plot(np.real(limpts), zarray, 'bo', markersize=0.1)
+
+    plt.plot(limpts, zarray, 'bo', markersize=0.1)
     plt.show()
     return
-'''
+
 
 # Concerned that mat is not changed when this funciton returns in the recursion in genwords
 
@@ -183,17 +241,29 @@ def rescheck(mat, point, trans):
     if np.imag(x) <= 0.1:
         limpts.append(np.real(x))
         # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
-        return True
+        return [True, mat]
+    # what is a good upper bound to stop considering? or should we check decreasing condition vs hard bound?
+    elif np.imag(x) >= 50:
+        return [False, mat]
     else:
-        return False
+        return [False, mat]
 
 '''
 MAIN
 
 '''
-
+max = 20
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
-genwords('', '', 10, matrix1)
+genwords('', '', max, matrix1)
+print 'num limit points graphed ='
+print len(limpts)
+
+print 'versus generating all:'
+print 4*3**(max-1)
+
+plotlimpts()
+
+
 
 
 

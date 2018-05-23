@@ -43,6 +43,18 @@ def genwords(word, letter, max, mat):
             truthmat = rescheck(mat, point, a)
             if truthmat[0]:
                 pass
+            #what should happen if !truthmat[0]?
+            #that means that a. it isnt getting closer,
+            #b. it is above some bound or
+            #c. neither of those things but its not within our determined proximity
+            #if it is a bad point we do not want to continue to calculate
+            #if it is unknown we want to keep calculating
+            #if it is a good point we want to graph(? or maybe keep calculating, find more words that begin like that?)
+            #if we get that a 7 letter word is close enough to the boundary, do we care about the max-length
+            #words beginning with those 7 letters? probably not right? just worried maybe some points will degenerate
+            #and we'll miss out on points in the limit set. thinking if we know a shorter word is good
+            #(close and getting closer) we can graph all(? or some) max-length words that start with the shorter word
+            #I only bring this up because if we change the "close enough" bound we graph a different number of points
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
@@ -228,7 +240,7 @@ def plotlimpts():
     for pt in limpts:
         zarray.append(0)
 
-    plt.plot(limpts, zarray, 'bo', markersize=0.1)
+    plt.plot(limpts, zarray, 'bo', markersize=0.5)
     plt.show()
     return
 
@@ -236,13 +248,18 @@ def plotlimpts():
 # Concerned that mat is not changed when this funciton returns in the recursion in genwords
 
 def rescheck(mat, point, trans):
+    y = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
     mat = np.matmul(trans, mat)
     x = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
-    if np.imag(x) <= 0.1:
+    
+    if np.imag(x) <= 0.01 :
         limpts.append(np.real(x))
         # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
         return [True, mat]
     # what is a good upper bound to stop considering? or should we check decreasing condition vs hard bound?
+    # tried to make it check if it gets closer each step
+    elif np.imag(x-y) >= 0:
+        return [False, mat]
     elif np.imag(x) >= 50:
         return [False, mat]
     else:
@@ -255,11 +272,11 @@ MAIN
 max = 20
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
-print 'num limit points graphed ='
-print len(limpts)
+print ('num limit points graphed = ')
+print (len(limpts))
 
-print 'versus generating all:'
-print 4*3**(max-1)
+print ('versus generating all: ')
+print (4*3**(max-1))
 
 plotlimpts()
 

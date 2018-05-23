@@ -251,15 +251,21 @@ def rescheck(mat, point, trans):
     y = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
     mat = np.matmul(trans, mat)
     x = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
-    
-    if np.imag(x) <= 0.01 :
-        limpts.append(np.real(x))
+
+
+    # also check if imag is decreasing once bound is checked. nested conditional
+    if np.imag(x) <= 0.01:
+        if np.imag(x-y) <= 0:
+            limpts.append(np.real(x))
         # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
-        return [True, mat]
+            return [True, mat]
+        else:
+            return [False, mat]
     # what is a good upper bound to stop considering? or should we check decreasing condition vs hard bound?
     # tried to make it check if it gets closer each step
-    elif np.imag(x-y) >= 0:
-        return [False, mat]
+    # mentors said to throw out increasing condition
+    # elif np.imag(x-y) >= 0:
+        # return [False, mat]
     elif np.imag(x) >= 50:
         return [False, mat]
     else:

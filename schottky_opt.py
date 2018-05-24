@@ -15,11 +15,23 @@ limpts = []
 
 
 # Matrix assignment
+'''
 a = np.matrix([[9+0j, 0+0j], [0+0j, 1+0j]])
 b = np.matrix([[5+0j, 4+0j], [4+0j, 5+0j]])
 A = np.linalg.inv(a)
 B = np.linalg.inv(b)
+'''
+y = 6
+x = np.sqrt(1+y**2)
+v = 6
+u = np.sqrt(1+v**2)
+k = 1
+#Certain values cause this to run much more slowly/quickly
 
+a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
+b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
+A = np.linalg.inv(a)
+B = np.linalg.inv(b)
 
 '''
 Overview of function: 
@@ -254,7 +266,7 @@ def rescheck(mat, point, trans):
 
 
     # also check if imag is decreasing once bound is checked. nested conditional
-    if np.imag(x) <= 0.01:
+    if np.imag(x) <= 0.05: #big time difference between 0.05 and 0.01
         if np.imag(x-y) <= 0:
             limpts.append(np.real(x))
         # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
@@ -275,7 +287,7 @@ def rescheck(mat, point, trans):
 MAIN
 
 '''
-max = 20
+max = 15
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
 print ('num limit points graphed = ')

@@ -29,11 +29,6 @@ B = np.linalg.inv(b)
 If tr(abAB) = -2, circles are tangent to eachother, connected Cantor limit set
 abAB has to be a parabolic element
 '''
-a = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-b = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-A = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-B = np.matrix([[1+0j, 0+0j],[0+0j, 1+0j]])
-
 
 '''
 Overview of function: 

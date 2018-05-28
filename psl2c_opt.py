@@ -16,9 +16,9 @@ limpts = []
 # matrices to be overwritten later as Mobius transformations
 
 
-y = 2
+y = 1
 x = np.sqrt(1+y**2)
-v = 2
+v = 1
 u = np.sqrt(1+v**2)
 k = 1
 #Certain values cause this to run much more slowly/quickly
@@ -221,8 +221,8 @@ def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
     plt.plot(reals, imags, 'bo', markersize=0.1)
-    plt.ylim(ymax=1.2)
-    plt.ylim(ymin=-1.2)
+    #plt.ylim(ymax=1.2)
+    #plt.ylim(ymin=-1.2)
     plt.show()
     return
 

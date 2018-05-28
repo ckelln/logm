@@ -11,6 +11,8 @@ charlst = []
 # list to hold all resultant matrices of the reduced words in charlst
 matlst = []
 
+limpts = []
+
 # matrices to be overwritten later as Mobius transformations
 
 
@@ -42,6 +44,7 @@ Description of parameters:
 '''
 def genwords(word, letter, max, mat):
     point = 1 + 1j
+    x3 = 1
     if max > len(word):
         # case avoiding appending a's inverse, A
         if letter == 'a':
@@ -49,7 +52,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'a'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, a)
+            truthmat = rescheck(mat, point, a, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -59,7 +62,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'b'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, b)
+            truthmat = rescheck(mat, point, b, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -69,7 +72,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'B'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, B)
+            truthmat = rescheck(mat, point, B, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -81,7 +84,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'a'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, a)
+            truthmat = rescheck(mat, point, a, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -91,7 +94,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'b'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, b)
+            truthmat = rescheck(mat, point, b, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -101,7 +104,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'A'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, A)
+            truthmat = rescheck(mat, point, A, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -113,7 +116,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'B'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, B)
+            truthmat = rescheck(mat, point, B, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -123,7 +126,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'b'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, b)
+            truthmat = rescheck(mat, point, b, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -133,7 +136,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'A'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, A)
+            truthmat = rescheck(mat, point, A, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -145,7 +148,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'a'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, a)
+            truthmat = rescheck(mat, point, a, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -155,7 +158,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'B'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, B)
+            truthmat = rescheck(mat, point, B, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -165,7 +168,7 @@ def genwords(word, letter, max, mat):
             newword = word + 'A'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, A)
+            truthmat = rescheck(mat, point, A, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -180,21 +183,6 @@ def genwords(word, letter, max, mat):
     else:
         charlst.append(word)
 
-
-'''    
-Overview of function: 
-    Assigns Mobius transformations in PSL(2, R) to a, b, A, and B. 
-    Maybe we could get a, then define all the others to get tr(abAB)=-2
-'''
-def pickmats():
-    global a
-    a = np.matrix([[9+0j, 0+0j], [0+0j, 1+0j]])
-    global b
-    b = np.matrix([[5+0j, 4+0j], [4+0j, 5+0j]])
-    global A
-    A = np.linalg.inv(a)
-    global B
-    B = np.linalg.inv(b)
 
 '''
 create some sort of checking funciton to see if x3<10^-2 at each step.
@@ -230,32 +218,14 @@ Overview of function:
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
 def plotlimpts():
-
-    zarray = []
-    for pt in limpts:
-        zarray.append(0)
-
-    plt.plot(limpts, zarray, 'bo', markersize=0.5)
-    plt.show()
-    return
-
-def plotlimpts():
-    initpoint = 1 + 1j
-    x3 = 20
-    limpts = []
-    for mat in matlst:
-        # composition of elementary transforms to get action on the Reimann sphere extended to upper half space
-        # endpoint is the result of extended action in the form of [x1 + ix2, x3]
-        endpoint = comp(initpoint, mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
-        if endpoint[1] <= 0.1:
-            limpts.append(endpoint[0])
     reals = np.real(limpts)
     imags = np.imag(limpts)
     plt.plot(reals, imags, 'bo', markersize=0.1)
-    plt.ylim(ymax=10)
-    plt.ylim(ymin=-10)
+    plt.ylim(ymax=1.2)
+    plt.ylim(ymin=-1.2)
     plt.show()
     return
+
 
 
 '''
@@ -308,18 +278,18 @@ def f3(point, x3):
     norm = np.absolute(point)**2 + x3**2
     return [np.conj(point) / norm, x3 / norm]
 
-def rescheck(mat, point, trans):
-    y = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
+def rescheck(mat, point, trans, x3):
+    y = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
     mat = np.matmul(trans, mat)
-    x = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
+    x = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
 
-    if np.imag(x) <= 0.01:
-        if np.imag(x-y) <= 0:
-            limpts.append(np.real(x))
+    if x[1] <= 0.0001:
+        if (x[1]-y[1]) < 0:
+            limpts.append(x[0])
             return [0, mat]
         else:
             return [1, mat]
-    elif np.imag(x) >= 50:
+    elif x[1] >= 50:
         return [2, mat]
     else:
         return [1, mat]

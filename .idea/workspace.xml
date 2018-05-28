@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9177d8e9-fa7d-4b62-aebb-225ecc8ea173" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/psl2c_opt.py" beforeDir="false" afterPath="$PROJECT_DIR$/psl2c_opt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schottky_opt.py" beforeDir="false" afterPath="$PROJECT_DIR$/schottky_opt.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +28,8 @@
       <file leaf-file-name="schottky_opt.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/schottky_opt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="244" selection-start-line="244" selection-end-line="258" />
+            <state relative-caret-position="106">
+              <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -39,8 +37,8 @@
       <file leaf-file-name="psl2c_opt.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/psl2c_opt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1348">
-              <caret line="346" lean-forward="true" selection-start-line="346" selection-end-line="346" />
+            <state relative-caret-position="1710">
+              <caret line="115" column="32" lean-forward="true" selection-start-line="115" selection-start-column="32" selection-end-line="116" />
             </state>
           </provider>
         </entry>
@@ -144,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.schottky_opt">
+  <component name="RunManager" selected="Python.psl2c_opt">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -181,6 +179,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="psl2c_opt" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/psl2c_opt.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="schottky_opt" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -203,9 +219,11 @@
       <item itemvalue="Python.main" />
       <item itemvalue="Python.psl2c" />
       <item itemvalue="Python.schottky_opt" />
+      <item itemvalue="Python.psl2c_opt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.psl2c_opt" />
         <item itemvalue="Python.schottky_opt" />
         <item itemvalue="Python.main" />
         <item itemvalue="Python.psl2c" />
@@ -234,7 +252,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079364" side_tool="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49920633" weight="0.32885906" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49920633" visible="true" weight="0.32885906" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -461,15 +479,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/schottky_opt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="244" selection-start-line="244" selection-end-line="258" />
+        <state relative-caret-position="106">
+          <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/psl2c_opt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1348">
-          <caret line="346" lean-forward="true" selection-start-line="346" selection-end-line="346" />
+        <state relative-caret-position="1710">
+          <caret line="115" column="32" lean-forward="true" selection-start-line="115" selection-start-column="32" selection-end-line="116" />
         </state>
       </provider>
     </entry>

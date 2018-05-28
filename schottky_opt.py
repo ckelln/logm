@@ -15,15 +15,15 @@ limpts = []
 
 
 # Matrix assignment
-'''
+
 a = np.matrix([[9+0j, 0+0j], [0+0j, 1+0j]])
 b = np.matrix([[5+0j, 4+0j], [4+0j, 5+0j]])
 A = np.linalg.inv(a)
 B = np.linalg.inv(b)
 '''
-y = 6
+y = 2
 x = np.sqrt(1+y**2)
-v = 6
+v = 2
 u = np.sqrt(1+v**2)
 k = 1
 #Certain values cause this to run much more slowly/quickly
@@ -32,7 +32,7 @@ a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
 b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
 A = np.linalg.inv(a)
 B = np.linalg.inv(b)
-
+'''
 '''
 Overview of function: 
     Recursive function to generate all reduced words with chars in {a, A, b, B} of length 'max' and store them in lst.
@@ -53,7 +53,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             #what should happen if !truthmat[0]?
             #that means that a. it isnt getting closer,
@@ -75,7 +75,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -85,7 +85,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -97,7 +97,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -107,7 +107,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -117,7 +117,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -129,7 +129,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -139,7 +139,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -149,7 +149,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -161,7 +161,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -171,7 +171,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -181,7 +181,7 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A)
-            if truthmat[0]:
+            if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -266,22 +266,22 @@ def rescheck(mat, point, trans):
 
 
     # also check if imag is decreasing once bound is checked. nested conditional
-    if np.imag(x) <= 0.05: #big time difference between 0.05 and 0.01
+    if np.imag(x) <= 0.01: #big time difference between 0.05 and 0.01
         if np.imag(x-y) <= 0:
             limpts.append(np.real(x))
         # plt.plot(np.real(x), 0, 'bo', markersize=0.1)
-            return [True, mat]
+            return [0, mat]
         else:
-            return [False, mat]
+            return [1, mat]
     # what is a good upper bound to stop considering? or should we check decreasing condition vs hard bound?
     # tried to make it check if it gets closer each step
     # mentors said to throw out increasing condition
     # elif np.imag(x-y) >= 0:
         # return [False, mat]
     elif np.imag(x) >= 50:
-        return [False, mat]
+        return [2, mat]
     else:
-        return [False, mat]
+        return [1, mat]
 
 '''
 MAIN

@@ -12,6 +12,19 @@ charlst = []
 matlst = []
 
 # matrices to be overwritten later as Mobius transformations
+
+
+y = 2
+x = np.sqrt(1+y**2)
+v = 2
+u = np.sqrt(1+v**2)
+k = 1
+#Certain values cause this to run much more slowly/quickly
+
+a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
+b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
+A = np.linalg.inv(a)
+B = np.linalg.inv(b)
 '''
 If tr(abAB) = -2, circles are tangent to eachother, connected Cantor limit set
 abAB has to be a parabolic element
@@ -30,62 +43,145 @@ Description of parameters:
     'word' is the string to be added onto, empty or consisting of chars in {a, A, b, B}. 
     'letter' is the last letter of 'word', i.e. word[-1]. 
     'max' is our desired length for our final words to be stored in lst, sufficiently large to create accurate images.
+    'mat' is the identity, or some composition of maps a, A, b, and B.
 '''
-def genwords(word, letter, max):
+def genwords(word, letter, max, mat):
+    point = 1 + 1j
     if max > len(word):
         # case avoiding appending a's inverse, A
         if letter == 'a':
             newletter = 'a'
             newword = word + 'a'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'B'
             newword = word + 'B'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
         # case avoiding appending b's inverse, B
         elif letter == 'b':
             newletter = 'a'
             newword = word + 'a'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            genwords(newword, newletter, max)
-         # case avoiding appending A's inverse, a
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
+        # case avoiding appending A's inverse, a
         elif letter == 'A':
             newletter = 'B'
             newword = word + 'B'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'b'
             newword = word + 'b'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, b)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
         # case avoiding appending B's inverse, b
         elif letter == 'B':
             newletter = 'a'
             newword = word + 'a'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, a)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'B'
             newword = word + 'B'
-            genwords(newword, newletter, max)
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'A'
             newword = word + 'A'
-            genwords(newword, newletter, max)
-        # case with empty (word == '') and (letter == '').
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
+        # case with empty (word == ''), (letter == ''), and (for the fctn to work) (mat = ID).
         else:
-            genwords('a', 'a', max)
-            genwords('A', 'A', max)
-            genwords('b', 'b', max)
-            genwords('B', 'B', max)
-    #word should be some length less than max, but it would be nice to know what the length of the word is.
-    #lets say word is currently of length i
-    #send word to multwords, then have some checking function, if x3<10^-2
+            genwords('a', 'a', max, mat)
+            genwords('A', 'A', max, mat)
+            genwords('b', 'b', max, mat)
+            genwords('B', 'B', max, mat)
     else:
         charlst.append(word)
 
@@ -138,6 +234,16 @@ Overview of function:
     upper half plane. Some products, z, will be near the real axis, others will show signs of diverging. We consider 
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
+def plotlimpts():
+
+    zarray = []
+    for pt in limpts:
+        zarray.append(0)
+
+    plt.plot(limpts, zarray, 'bo', markersize=0.5)
+    plt.show()
+    return
+
 def plotlimpts():
     initpoint = 1 + 1j
     x3 = 20
@@ -207,14 +313,35 @@ def f3(point, x3):
     norm = np.absolute(point)**2 + x3**2
     return [np.conj(point) / norm, x3 / norm]
 
+def rescheck(mat, point, trans):
+    y = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
+    mat = np.matmul(trans, mat)
+    x = (mat[0, 0] * point + mat[0, 1]) / (mat[1, 0] * point + mat[1, 1])
+
+    if np.imag(x) <= 0.01:
+        if np.imag(x-y) <= 0:
+            limpts.append(np.real(x))
+            return [0, mat]
+        else:
+            return [1, mat]
+    elif np.imag(x) >= 50:
+        return [2, mat]
+    else:
+        return [1, mat]
+
 
 '''
 MAIN
 
 '''
+max = 15
+matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
+genwords('', '', max, matrix1)
+print ('num limit points graphed = ')
+print (len(limpts))
 
-genwords('', '', 10)
-pickmats()
-multwords()
+print ('versus generating all: ')
+print (4*3**(max-1))
+
 plotlimpts()
 

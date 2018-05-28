@@ -244,14 +244,16 @@ def comp(point, q, r, s, t, x3):
     var1 = q / (r*s - t*q)
     if s != 0:
         var2 = r - (t*q)/s
+        first = f2(point, s, x3)
+        second = f1(first[0], t, first[1])
+        third = f3(second[0], second[1])
+        fourth = f1(third[0], var1, third[1])
+        return f2(fourth[0], var2, fourth[1])
     else :
-        # FIXME
-        var2 = r
-    first = f2(point, s, x3)
-    second = f1(first[0], t, first[1])
-    third = f3(second[0], second[1])
-    fourth = f1(third[0], var1, third[1])
-    return f2(fourth[0], var2, fourth[1])
+        first = f2(point, q, x3)
+        second = f1(first[0], r, first[1])
+        return f2(second[0], 1/t, second[1])
+    
 
 
 '''
@@ -299,7 +301,7 @@ def rescheck(mat, point, trans, x3):
 MAIN
 
 '''
-max = 15
+max = 20
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
 print ('num limit points graphed = ')

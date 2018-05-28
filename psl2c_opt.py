@@ -285,7 +285,7 @@ def rescheck(mat, point, trans, x3):
     mat = np.matmul(trans, mat)
     x = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
 
-    if x[1] <= 0.0001:
+    if x[1] <= 0.000001:
         if (x[1]-y[1]) < 0:
             limpts.append(x[0])
             return [0, mat]

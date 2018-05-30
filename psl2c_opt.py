@@ -282,7 +282,7 @@ def f3(point, x3):
 
 def rescheck(mat, point, trans, x3):
     y = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
-    mat = np.matmul(trans, mat)
+    mat = np.matmul(mat, trans)
     x = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
 
     if x[1] <= 0.000001:

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import cmath as cm
 
 
 # list to hold all reduced words of a given max length
@@ -14,11 +15,13 @@ limpts = []
 
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
-y = 1
+y = .4
 x = np.sqrt(1+y**2)
-v = 1
+v = 2.0
 u = np.sqrt(1+v**2)
-k = 1/(y*v) + np.sqrt((1/(y**2 * v**2))-1)
+k = 1/(y*v) + cm.sqrt((1/(y**2 * v**2))-1)
+
+print k
 
 a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
 b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
@@ -193,8 +196,8 @@ def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
     plt.plot(reals, imags, 'bo', markersize=0.1)
-    #plt.ylim(ymax=1.2)
-    #plt.ylim(ymin=-1.2)
+   # plt.ylim(ymax=1.2)
+   # plt.ylim(ymin=-1.2)
     plt.show()
     return
 

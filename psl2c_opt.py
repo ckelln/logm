@@ -18,7 +18,7 @@ y = 1
 x = np.sqrt(1+y**2)
 v = 1
 u = np.sqrt(1+v**2)
-k = 1
+k = 1/(y*v) + np.sqrt((1/(y**2 * v**2))-1)
 
 a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
 b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
@@ -270,7 +270,7 @@ def rescheck(mat, point, trans, x3):
     mat = np.matmul(mat, trans)
     x = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
 
-    if x[1] <= 0.000001:
+    if x[1] <= 0.00001:
         if (x[1]-y[1]) < 0:
             limpts.append(x[0])
             return [0, mat]
@@ -286,7 +286,7 @@ def rescheck(mat, point, trans, x3):
 MAIN
 
 '''
-max = 20
+max = 10
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
 print ('num limit points graphed = ')

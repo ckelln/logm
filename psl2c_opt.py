@@ -4,7 +4,11 @@ import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import cmath as cm
+import time
 
+#values for zero and infinity
+zero = 1e-6
+infty = 1e6
 
 # list to hold all reduced words of a given max length
 charlst = []
@@ -198,6 +202,7 @@ def plotlimpts():
     plt.plot(reals, imags, 'bo', markersize=0.1)
    # plt.ylim(ymax=1.2)
    # plt.ylim(ymin=-1.2)
+    plt.axes().set_aspect('equal', 'datalim')
     plt.show()
     return
 
@@ -256,6 +261,39 @@ def f3(point, x3):
     return [np.conj(point) / norm, x3 / norm]
 
 
+'''
+Overview of function:
+    Helper function: find the fixed points of a Mobius transformation
+'''
+def fixpt(mat):
+    det = np.linalg.det(mat)
+    sqrtdet = np.sqrt(det)
+    trace = np.trace(mat)
+    if abs(mat[1, 0]) >= zero:
+        if abs(trace-2*sqrtdet) <= zero or abs(trace+2*sqrtdet) <= zero:
+            sqrtdiscr = np.sqrt(trace**2-4*det) 
+	    p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
+	    p2 = p1
+	    return [p1 ,p2]
+	else: 
+	    sqrtdiscr = np.sqrt(trace**2-4*det) 
+	    p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
+	    p2 = p1 - sqrtdiscr/(mat[1, 0])
+	    return [p1 ,p2]
+    elif abs(mat[0, 0]-mat[1, 1]) >= zero:
+	if mat[0, 0] < mat[1, 1]:
+	    p1 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
+	    p2 = infty
+	    return [p1,p2]
+	else:
+	    p1 = infty
+	    p2 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
+	    return [p1,p2]
+    else:
+	p1 = infty
+	p2 = infty
+	return [p1,p2]
+
 
 '''
 Overview of function: 
@@ -273,13 +311,13 @@ def rescheck(mat, point, trans, x3):
     mat = np.matmul(mat, trans)
     x = comp(point,  mat[0, 0], mat[0, 1], mat[1, 0], mat[1, 1], x3)
 
-    if x[1] <= 0.00001:
+    if x[1] <= 0.0005:
         if (x[1]-y[1]) < 0:
             limpts.append(x[0])
             return [0, mat]
         else:
             return [1, mat]
-    elif x[1] >= 50:
+    elif x[1] >= 5:
         return [2, mat]
     else:
         return [1, mat]
@@ -289,14 +327,21 @@ def rescheck(mat, point, trans, x3):
 MAIN
 
 '''
-max = 10
+
+t0=time.time()
+max = 100
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
+t1=time.time()
+total=t1-t0
 print ('num limit points graphed = ')
 print (len(limpts))
 
 print ('versus generating all: ')
 print (4*3**(max-1))
+print ('total time =')
+print (total)
+print (fixpt(np.matmul(np.matmul(a,b),np.matmul(A,B))))
+
 
 plotlimpts()
-

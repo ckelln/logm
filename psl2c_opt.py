@@ -25,7 +25,7 @@ v = 2.0
 u = np.sqrt(1+v**2)
 k = 1/(y*v) + cm.sqrt((1/(y**2 * v**2))-1)
 
-print k
+print (k)
 
 a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
 b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
@@ -200,8 +200,8 @@ def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
     plt.plot(reals, imags, 'bo', markersize=0.1)
-   # plt.ylim(ymax=1.2)
-   # plt.ylim(ymin=-1.2)
+    #plt.ylim(ymax=1.2)
+    #plt.ylim(ymin=-1.2)
     plt.axes().set_aspect('equal', 'datalim')
     plt.show()
     return
@@ -271,28 +271,28 @@ def fixpt(mat):
     trace = np.trace(mat)
     if abs(mat[1, 0]) >= zero:
         if abs(trace-2*sqrtdet) <= zero or abs(trace+2*sqrtdet) <= zero:
-            sqrtdiscr = np.sqrt(trace**2-4*det) 
-	    p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
-	    p2 = p1
-	    return [p1 ,p2]
-	else: 
-	    sqrtdiscr = np.sqrt(trace**2-4*det) 
-	    p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
-	    p2 = p1 - sqrtdiscr/(mat[1, 0])
-	    return [p1 ,p2]
+            sqrtdiscr = np.sqrt(trace**2-4*det)
+            p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
+            p2 = p1
+            return [p1 ,p2]
+        else:
+            sqrtdiscr = np.sqrt(trace**2-4*det)
+            p1 = (mat[0, 0]-mat[1, 1] + sqrtdiscr)/(2*mat[1, 0])
+            p2 = p1 - sqrtdiscr/(mat[1, 0])
+            return [p1 ,p2]
     elif abs(mat[0, 0]-mat[1, 1]) >= zero:
-	if mat[0, 0] < mat[1, 1]:
-	    p1 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
-	    p2 = infty
-	    return [p1,p2]
-	else:
-	    p1 = infty
-	    p2 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
-	    return [p1,p2]
+        if mat[0, 0] < mat[1, 1]:
+            p1 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
+            p2 = infty
+            return [p1,p2]
+        else:
+            p1 = infty
+            p2 = mat[0, 1]/(mat[1, 1]-mat[0, 0])
+            return [p1,p2]
     else:
-	p1 = infty
-	p2 = infty
-	return [p1,p2]
+        p1 = infty
+        p2 = infty
+        return [p1,p2]
 
 
 '''

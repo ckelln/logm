@@ -202,7 +202,7 @@ Overview of function:
 def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
-    plt.plot(reals, imags, 'bo', markersize=0.1)
+    plt.plot(reals, imags, 'ko-', linewidth=1, markersize = 0.01)
     #plt.ylim(ymax=1.2)
     #plt.ylim(ymin=-1.2)
     plt.axes().set_aspect('equal', 'datalim')

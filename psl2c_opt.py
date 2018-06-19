@@ -54,6 +54,16 @@ def genwords(word, letter, max, mat):
     if max > len(word):
         # case avoiding appending a's inverse, A
         if letter == 'a':
+            newletter = 'B'
+            newword = word + 'B'
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, B, x3)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+                pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
             newletter = 'a'
             newword = word + 'a'
 
@@ -74,15 +84,7 @@ def genwords(word, letter, max, mat):
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
-            newletter = 'B'
-            newword = word + 'B'
-
-            # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, B, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
-                pass
-            else:
-                genwords(newword, newletter, max, truthmat[1])
+            
 
         # case avoiding appending b's inverse, B
         elif letter == 'b':
@@ -118,16 +120,6 @@ def genwords(word, letter, max, mat):
 
         # case avoiding appending A's inverse, a
         elif letter == 'A':
-            newletter = 'B'
-            newword = word + 'B'
-
-            # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, B, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
-                pass
-            else:
-                genwords(newword, newletter, max, truthmat[1])
-
             newletter = 'b'
             newword = word + 'b'
 
@@ -148,13 +140,23 @@ def genwords(word, letter, max, mat):
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
-        # case avoiding appending B's inverse, b
-        elif letter == 'B':
-            newletter = 'a'
-            newword = word + 'a'
+            newletter = 'B'
+            newword = word + 'B'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, a, x3)
+            truthmat = rescheck(mat, point, B, x3)
+            if truthmat[0] == 0 or truthmat[0] == 2:
+		pass
+            else:
+                genwords(newword, newletter, max, truthmat[1])
+
+        # case avoiding appending B's inverse, b
+        elif letter == 'B':
+            newletter = 'A'
+            newword = word + 'A'
+
+            # list of the form [bool, matrix]
+            truthmat = rescheck(mat, point, A, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -166,15 +168,15 @@ def genwords(word, letter, max, mat):
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
-                pass
+	        pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
-            newletter = 'A'
-            newword = word + 'A'
+            newletter = 'a'
+            newword = word + 'a'
 
             # list of the form [bool, matrix]
-            truthmat = rescheck(mat, point, A, x3)
+            truthmat = rescheck(mat, point, a, x3)
             if truthmat[0] == 0 or truthmat[0] == 2:
                 pass
             else:
@@ -183,9 +185,10 @@ def genwords(word, letter, max, mat):
         # case with empty (word == ''), (letter == ''), and (for the fctn to work) (mat = ID).
         else:
             genwords('a', 'a', max, mat)
+            genwords('B', 'B', max, mat)
             genwords('A', 'A', max, mat)
             genwords('b', 'b', max, mat)
-            genwords('B', 'B', max, mat)
+            
     else:
         charlst.append(word)
 

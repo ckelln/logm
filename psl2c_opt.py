@@ -19,9 +19,9 @@ limpts = []
 
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
-y = .4
+y = .01
 x = np.sqrt(1+y**2)
-v = 2.0
+v = .01
 u = np.sqrt(1+v**2)
 k = 1/(y*v) + cm.sqrt((1/(y**2 * v**2))-1)
 
@@ -202,7 +202,7 @@ Overview of function:
 def plotlimpts():
     reals = np.real(limpts)
     imags = np.imag(limpts)
-    plt.plot(reals, imags, 'ko-', linewidth=1, markersize = 0.01)
+    plt.plot(reals, imags, 'ko', linewidth=1, markersize = 0.01)
     #plt.ylim(ymax=1.2)
     #plt.ylim(ymin=-1.2)
     plt.axes().set_aspect('equal', 'datalim')
@@ -332,7 +332,7 @@ MAIN
 '''
 
 t0=time.time()
-max = 100
+max = 15
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
 t1=time.time()

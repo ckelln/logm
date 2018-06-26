@@ -19,13 +19,17 @@ limpts = []
 
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
-y = .01
+y = 3.14159/360.0
+print 'y = ' + str(y)
+print
 x = np.sqrt(1+y**2)
-v = .01
+v = .5
+print 'v = ' + str(v)
+print
+
 u = np.sqrt(1+v**2)
 k = 1/(y*v) + cm.sqrt((1/(y**2 * v**2))-1)
 
-print (k)
 
 a = np.matrix([[u+0j, 0+(k*v)*1j], [0-(v/k)*1j, u+0j]])
 b = np.matrix([[x+0j, y+0j], [y+0j, x+0j]])
@@ -59,7 +63,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -69,7 +75,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -79,7 +87,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -93,7 +103,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -103,7 +115,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -113,7 +127,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -125,7 +141,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -135,7 +153,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -145,8 +165,10 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
-		pass
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
+                pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
@@ -157,7 +179,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -167,8 +191,10 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
-	        pass
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
+                pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
 
@@ -177,7 +203,9 @@ def genwords(word, letter, max, mat):
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
-            if truthmat[0] == 0 or truthmat[0] == 2:
+            if truthmat[0] == 0:
+                charlst.append(newword)
+            elif truthmat[0] == 2:
                 pass
             else:
                 genwords(newword, newletter, max, truthmat[1])
@@ -190,7 +218,7 @@ def genwords(word, letter, max, mat):
             genwords('b', 'b', max, mat)
             
     else:
-        charlst.append(word)
+        return
 
 
 '''
@@ -200,11 +228,21 @@ Overview of function:
     only those z near the real axis, and approximate the true limit point by z.real. 
 '''
 def plotlimpts():
+
+    cayleylimpts = []
+    for pt in limpts:
+        x = (1j - pt) / (1j + pt)
+        cayleylimpts.append(x)
+
+    reals = np.real(cayleylimpts)
+    imags = np.imag(cayleylimpts)
+    '''
+    #took out this code to try mapping on reimann sphere instead of the plane
     reals = np.real(limpts)
     imags = np.imag(limpts)
-    plt.plot(reals, imags, 'ko', linewidth=1, markersize = 0.01)
-    #plt.ylim(ymax=1.2)
-    #plt.ylim(ymin=-1.2)
+    '''
+
+    plt.plot(reals, imags, 'ko-', linewidth=1, markersize = 0.01)
     plt.axes().set_aspect('equal', 'datalim')
     plt.show()
     return
@@ -339,11 +377,35 @@ t1=time.time()
 total=t1-t0
 print ('num limit points graphed = ')
 print (len(limpts))
+print
+
+print ('num words in charlist =')
+print(len(charlst))
+print
+
+count = 0
+for word in charlst:
+    if (len(word) < max):
+        #print(word)
+        pass
+    elif (len(word) == max):
+        count = count + 1
+print ('num of max length words in charlist = ')
+print (count)
+print
+
+print ("percent of words plotted with max length: ")
+print ((float(count) / float(len(charlst))) * 100)
+print
 
 print ('versus generating all: ')
 print (4*3**(max-1))
+print
+
 print ('total time =')
 print (total)
+print
+
 print ('fixed point of the commutator word abAB:')
 print (fixpt(np.matmul(np.matmul(a,b),np.matmul(A,B))))
 print ('fixed point of the commutator word bABa:')

@@ -53,7 +53,7 @@ Description of parameters:
     'mat' is the identity, or some composition of maps a, A, b, and B.
 '''
 def genwords(word, letter, max, mat):
-    point = 1 + 1j
+    point = fixpt(a)[0]
     x3 = 1
     if max > len(word):
         # case avoiding appending a's inverse, A
@@ -358,7 +358,7 @@ def rescheck(mat, point, trans, x3):
             return [0, mat]
         else:
             return [1, mat]
-    elif x[1] >= 5:
+    elif x[1] >= 10:
         return [2, mat]
     else:
         return [1, mat]

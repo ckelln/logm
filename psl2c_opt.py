@@ -19,7 +19,7 @@ limpts = []
 
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
-y = 3.14159/360.0
+y = .5
 print 'y = ' + str(y)
 print
 x = np.sqrt(1+y**2)
@@ -371,6 +371,8 @@ MAIN
 
 t0=time.time()
 max = 15
+print 'max length = ' + str(max)
+print
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1)
 t1=time.time()

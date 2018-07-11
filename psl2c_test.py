@@ -20,11 +20,11 @@ limpts = []
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
 y = .5
-print 'y = ' + str(y)
+print ("y = " + str(y))
 print
 x = np.sqrt(1+y**2)
 v = .5
-print 'v = ' + str(v)
+print ("v = " + str(v))
 print
 
 u = np.sqrt(1+v**2)
@@ -55,7 +55,7 @@ Description of parameters:
     'HEAD' (const) is the letter of the leftmost transformation, stored so that the optimal base point may be used. 
 '''
 def genwords(word, letter, max, mat, HEAD):
-    point = fxpt[HEAD]
+    point = 1 + 1j #fxpt[HEAD]
     x3 = 1
     if max > len(word):
         # case avoiding appending a's inverse, A
@@ -63,6 +63,10 @@ def genwords(word, letter, max, mat, HEAD):
             newletter = 'B'
             newword = word + 'B'
 
+
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
+            #print(point)
+            
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
             if truthmat[0] == 0:
@@ -75,6 +79,8 @@ def genwords(word, letter, max, mat, HEAD):
             newletter = 'a'
             newword = word + 'a'
 
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
+
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
             if truthmat[0] == 0:
@@ -86,6 +92,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'b'
             newword = word + 'b'
+
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
@@ -102,6 +110,8 @@ def genwords(word, letter, max, mat, HEAD):
         elif letter == 'b':
             newletter = 'a'
             newword = word + 'a'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
@@ -114,6 +124,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'b'
             newword = word + 'b'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
@@ -126,6 +138,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'A'
             newword = word + 'A'
+
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
@@ -140,6 +154,8 @@ def genwords(word, letter, max, mat, HEAD):
         elif letter == 'A':
             newletter = 'b'
             newword = word + 'b'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, b, x3)
@@ -152,6 +168,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'A'
             newword = word + 'A'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
@@ -164,6 +182,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'B'
             newword = word + 'B'
+
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
@@ -178,6 +198,8 @@ def genwords(word, letter, max, mat, HEAD):
         elif letter == 'B':
             newletter = 'A'
             newword = word + 'A'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, A, x3)
@@ -190,6 +212,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'B'
             newword = word + 'B'
+            
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, B, x3)
@@ -202,6 +226,8 @@ def genwords(word, letter, max, mat, HEAD):
 
             newletter = 'a'
             newword = word + 'a'
+
+            point = comp(comm(newletter),mat[0,0],mat[0,1],mat[1,0],mat[1,1],x3)[0]
 
             # list of the form [bool, matrix]
             truthmat = rescheck(mat, point, a, x3)
@@ -367,19 +393,35 @@ def rescheck(mat, point, trans, x3):
 
 
 '''
+Overview of function:
+    Get fix point of commutator defined by argument. It will help us find point to expedite evaluation of fixed points
+Description of parameters:
+    'newletter' is the newest appended letter to some word. It is used to find a commutator.
+'''
+def comm(newletter):
+    if newletter == 'a':
+        return fixpt(np.matmul(np.matmul(B,a),np.matmul(b,A)))[0]
+    if newletter == 'b':
+        return fixpt(np.matmul(np.matmul(a,B),np.matmul(A,B)))[0]
+    if newletter == 'A':
+        return fixpt(np.matmul(np.matmul(b,A),np.matmul(B,a)))[0]
+    if newletter == 'B':
+        return fixpt(np.matmul(np.matmul(A,B),np.matmul(a,b)))[0]
+    return
+'''
 MAIN
 
 '''
 
 matlist = [a, A, b, B]
 fxpt = {'a': fixpt(a)[0], 'A': fixpt(A)[0], 'b': fixpt(b)[0], 'B': fixpt(B)[0]}
-print "Fixed Points: "
-print fxpt
+print ("Fixed Points: ")
+print (fxpt)
 print
 
 t0 = time.time()
 max = 15
-print "max length = " + str(max)
+print ("max length = " + str(max))
 matrix1 = np.matrix([[1+0j, 0+0j], [0+0j, 1+0j]])
 genwords('', '', max, matrix1, 'a')
 t1=time.time()

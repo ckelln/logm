@@ -19,11 +19,11 @@ limpts = []
 
 
 # Designation of matrix values so that tr(abAB) = -2 => limit set is a quasi-circle
-y = .5
+y = 2
 print ("y = " + str(y))
 print
 x = np.sqrt(1+y**2)
-v = .5
+v = 1
 print ("v = " + str(v))
 print
 
@@ -414,9 +414,28 @@ MAIN
 '''
 
 matlist = [a, A, b, B]
-fxpt = {'a': fixpt(a)[0], 'A': fixpt(A)[0], 'b': fixpt(b)[0], 'B': fixpt(B)[0]}
-print ("Fixed Points: ")
-print (fxpt)
+fxptgen = {'a': fixpt(a)[0], 'A': fixpt(A)[0], 'b': fixpt(b)[0], 'B': fixpt(B)[0]}
+print ("Fixed Points of generators: ")
+print (fxptgen)
+print
+norm_fxptgen = {}
+for key in fxptgen:
+    norm_fxptgen[key] = np.linalg.norm(fxptgen[key])
+print "norms of fp of generators:"
+print norm_fxptgen
+print
+fxptcom = {'a': fixpt(np.matmul(np.matmul(B,a),np.matmul(b,A)))[0],
+            'A': fixpt(np.matmul(np.matmul(b,A),np.matmul(B,a)))[0],
+            'b': fixpt(np.matmul(np.matmul(a,B),np.matmul(A,B)))[0],
+            'B': fixpt(np.matmul(np.matmul(A,B),np.matmul(a,b)))[0]}
+print ("Fixed Points of commutators: ")
+print (fxptcom)
+print
+norm_fxptcom = {}
+for key in fxptcom:
+    norm_fxptcom[key] = np.linalg.norm(fxptcom[key])
+print "norms of fp of commutators: "
+print(norm_fxptcom)
 print
 
 t0 = time.time()
@@ -457,16 +476,6 @@ print ('total time =')
 print (total)
 print
 
-'''
-print ('fixed point of the commutator word abAB:')
-print (fixpt(np.matmul(np.matmul(a,b),np.matmul(A,B))))
-print ('fixed point of the commutator word bABa:')
-print (fixpt(np.matmul(np.matmul(b,A),np.matmul(B,a))))
-print ('fixed point of the commutator word ABab:')
-print (fixpt(np.matmul(np.matmul(A,B),np.matmul(a,b))))
-print ('fixed point of the commutator word BabA:')
-print (fixpt(np.matmul(np.matmul(B,a),np.matmul(b,A))))
-'''
 
 
 plotlimpts()

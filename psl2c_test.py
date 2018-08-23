@@ -10,6 +10,14 @@ import time
 zero = 1e-6
 infty = 1e6
 
+#values for the windowthat we will draw
+xmin = -2.0
+xmax = 2.0
+ymin = -2.0
+ymax = 2.0
+wcen = 0
+winrad = np.sqrt((xmax-wcen)**2+(ymax-wcen)**2))
+
 # list to hold all reduced words of a given max length
 charlst = []
 
